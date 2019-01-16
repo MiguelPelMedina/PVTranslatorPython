@@ -114,10 +114,42 @@ class EditarModulo(BaseHandler):
         self.render_template('editarModulo.html', {'mod': mod})
         
                               
+      
+#----------------------------------------
+#------CRUD CAMPANYA
+#----------------------------------------
 class ListaCampanyas(BaseHandler):
     def get(self):
         listaCampanyas = Campanya.all()
         self.render_template('listaCampanyas.html', {'listaCampanyas': listaCampanyas})
+  
+#class CrearCampanya(BaseHandler):
+     
+        
+class EditarCampanya(BaseHandler):
+    def post(self,cam_id):
+        iden = int(cam_id)
+        cam = db.get(db.Key.from_path('Campanya', iden))
+        cam.fecha = datetime.strptime(self.request.get('fecha'), '%Y-%m-%d %H:%M:%S')
+        cam.nombrecampanya = self.request.get('nombre')
+        
+        cam.put()
+        listaCampanyas = Campanya.all()
+        self.render_template('listaCampanyas.html', {'listaCampanyas': listaCampanyas})
+     
+    def get(self,cam_id):
+        iden = int(cam_id)
+        cam = db.get(db.Key.from_path('Campanya', iden))
+        self.render_template('editarCampanya.html', {'cam': cam}) 
+
+class BorrarCampanya(BaseHandler):
+    def get(self,cam_id):
+        iden = int(cam_id)
+        cam = db.get(db.Key.from_path('Campanya', iden))
+        db.delete(cam)
+        
+        webapp2.redirect('/listaCampanyas')
+        return webapp2.redirect('/listaCampanyas')
 #----------------------------------------
 #------Mapa handler
 #----------------------------------------

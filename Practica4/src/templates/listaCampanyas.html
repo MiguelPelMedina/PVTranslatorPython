@@ -23,14 +23,16 @@
             	<thead>
             	<th>Modulo</th>
             	<th>Fecha</th>
-            	<th>Nombre</th>
+            	<th>Editar</th>
             	</thead>
             	<tbody>
             	{% for c in listaCampanyas %}
             	<tr>
-                	<td>{{ c.modulo.nombremodulo }}</td>
+                	
   					<td>{{ c.fecha.strftime('%Y-%m-%d') }}</td>
   					<td>{{ c.nombrecampanya }}</td>
+  					<td><a class="btn btn-warning" href="/editarCampanya/{{ c.key().id() }}">Editar </a></td>
+  					<td><a class="btn btn-danger" href="/borrarCampanya/{{ c.key().id() }}">Borrar </a></td>
             	</tr>
             	{% endfor %}
             	</tbody>
@@ -38,6 +40,9 @@
     	</div>
     	<div class="col-md-2"></div>
 		</div>
+		<!-- Bootstrap Core CSS -->
+		<link href="../static/css/bootstrap.min.css" rel="stylesheet">
+		<link href="../static/css/style.css" rel="stylesheet">
 		
 	{% endblock content %}	
    </h:body>

@@ -1,0 +1,35 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+	    <meta name="description" content="">
+	    <meta name="author" content="">
+	
+	    <title>Editar campanya</title>
+	</head>
+	<body>
+		<form class="form-horizontal" role="form" method="post">
+		  <div class="form-group row">
+		    <label class="col-sm-2 col-form-label">fecha</label>
+		    <div class="col-sm-10">
+		      <input type="text" id="fecha" name="fecha" value="{{cam.fecha}}">
+		    </div>
+		  </div>
+		  
+		  <div class="form-group row">
+		    <label class="col-sm-2 col-form-label">nombre</label>
+		    <div class="col-sm-10">
+		      <input type="text" id="nombre" name="nombre" value="{{cam.nombrecampanya}}">
+		    </div>
+		  </div>  
+		  
+		  <div class="form-group text-center">
+                <button type="submit" value="submit" class="btn btn-success">Editar</button>
+          </div>
+	</form>
+	<!-- Bootstrap Core CSS -->
+	<link href="../static/css/bootstrap.min.css" rel="stylesheet">
+	<link href="../static/css/style.css" rel="stylesheet">
+	</body>
+</html>

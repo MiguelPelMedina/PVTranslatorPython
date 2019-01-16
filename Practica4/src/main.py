@@ -3,7 +3,8 @@ Created on 15 ene. 2019
 
 @author: Alberto
 '''
-from views import Inicio, ListaModulos, ListaCampanyas, BorrarModulo, CrearModulo, EditarModulo, MapHandler #, Mapa, Comentarios, Imagenes
+
+from views import * 
 import webapp2
 
 app = webapp2.WSGIApplication([
@@ -13,6 +14,9 @@ app = webapp2.WSGIApplication([
         ('/borrarModulo/([\d]+)', BorrarModulo),
         ('/editarModulo/([\d]+)', EditarModulo),
         ('/crearModulo', CrearModulo),
+        #('/crearCampanya', CrearCampanya),
+        ('/editarCampanya/([\d]+)', EditarCampanya),
+        ('/borrarCampanya/([\d]+)', BorrarCampanya),
         ('/map',MapHandler)
         ],
         debug=True)

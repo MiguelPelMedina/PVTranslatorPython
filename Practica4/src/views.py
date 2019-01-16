@@ -42,9 +42,9 @@ class ListaModulos(BaseHandler):
         usuarios = Usuario.all()
         self.render_template('listaModulos.html', {'listaModulos': listaModulos, 'listaUsuarios':usuarios})
     
-    #----------------------------------------
-    #------CRUD MODULO
-    #----------------------------------------
+#----------------------------------------
+#------CRUD MODULO
+#----------------------------------------
 class BorrarModulo(BaseHandler):
     def get(self, modulo_id):
         iden = int(modulo_id)

@@ -1,0 +1,59 @@
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Lista de modulos</title>
+</head>
+
+   <h:body>
+	{% block content %}
+		<div class="row">
+    	<div class="col-md-2"></div>
+    	<div class="col-md-8">
+        	<table class="table">
+            	<thead>
+            	<th>Nombre</th>
+            	<th>Alpha</th>
+            	<th>Beta</th>
+            	<th>Gamma</th>
+            	<th>Kappa</th>
+            	<th>Idealidad</th>
+            	<th>Resistencia</th>
+            	<th>Rendimiento</th>
+            	</thead>
+            	<tbody>
+            	{% for m in listaModulos %}
+            	<tr>
+                	<td>{{ m.nombremodulo }}</td>
+  					<td>{{ m.valoralpha }}</td>
+  					<td>{{ m.valorbeta }}</td>
+  					<td>{{ m.valorgamma }}</td>
+  					<td>{{ m.valorkappa }}</td>
+  					<td>{{ m.idealidad }}</td>
+  					<td>{{ m.resistencia }}</td>
+  					<td>{{ m.rendimiento }}</td>
+               	 	<td><a class="btn btn-warning" href="/editarModulo/{{ m.key().id() }}">Editar </a></td>
+               	 	<td><a class="btn btn-danger" href="/borrarModulo/{{ m.key().id() }}">Borrar </a></td>
+            	</tr>
+            	{% endfor %}
+            	</tbody>
+        	</table>
+    	</div>
+    	<div class="col-md-2"></div>
+		</div>
+		
+	{% endblock content %}	
+	<!DOCTYPE html>
+	<!-- Bootstrap Core CSS -->
+	<link href="../static/css/bootstrap.min.css" rel="stylesheet">
+	<link href="../static/css/style.css" rel="stylesheet">
+	
+   </h:body>
+    
+    
+</html>

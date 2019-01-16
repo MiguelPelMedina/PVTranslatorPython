@@ -16,3 +16,4 @@ app = webapp2.WSGIApplication([
         ('/map',MapHandler)
         ],
         debug=True)
+

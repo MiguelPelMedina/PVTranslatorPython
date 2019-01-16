@@ -37,10 +37,14 @@ class Inicio (BaseHandler):
     
     
 class ListaModulos(BaseHandler):
+    
+
     def get(self):
         listaModulos = Modulo.all()
         usuarios = Usuario.all()
         self.render_template('listaModulos.html', {'listaModulos': listaModulos, 'listaUsuarios':usuarios})
+        
+    
     
 #----------------------------------------
 #------CRUD MODULO
@@ -49,7 +53,9 @@ class BorrarModulo(BaseHandler):
     def get(self, modulo_id):
         iden = int(modulo_id)
         mod = db.get(db.Key.from_path('Modulo', iden))
-        #FALTARIA BORRADO CASCADA
+        campanyas = mod.listaCampanyas #BORRADO CASCADA
+        for c in campanyas:
+            db.delete(c)
         db.delete(mod)
         #Recarga todo
         self.render_template('success.html', {})
@@ -124,4 +130,6 @@ class MapHandler(BaseHandler):
         data+= ']'
         print("json: ",data)
         self.render_template('Map.html', {'data': data})
+        
+
  

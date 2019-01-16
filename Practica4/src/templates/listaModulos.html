@@ -25,6 +25,7 @@
             	<th>Idealidad</th>
             	<th>Resistencia</th>
             	<th>Rendimiento</th>
+            	<th>temp/est.cielo</th>
             	</thead>
             	<tbody>
             	{% for m in listaModulos %}
@@ -37,6 +38,7 @@
   					<td>{{ m.idealidad }}</td>
   					<td>{{ m.resistencia }}</td>
   					<td>{{ m.rendimiento }}</td>
+  					<td><output onload="weather({{m.localizacion.lat}},{{m.localizacion.lon}})"></output></td>
                	 	<td><a class="btn btn-warning" href="/editarModulo/{{ m.key().id() }}">Editar </a></td>
                	 	<td><a class="btn btn-danger" href="/borrarModulo/{{ m.key().id() }}">Borrar </a></td>
             	</tr>
@@ -44,6 +46,17 @@
             	</tbody>
         	</table>
         	<a class="btn btn-success btn-lg" href="/crearModulo">Crear </a>
+        	<script>
+        		function weather(lat,lon){
+        			var result = '';
+        			console.log('aaaaaaaaaaaa');
+        			$.getJSON('http://api.openweathermap.org/data/2.5/weather?lat='+lat+'&lon='+lon+'&appid=60365771bc7d83329184c63b95c4966a', function (data) {
+        			      console.log(data);
+							result = data.main.temp +'/' +data.weather.description;
+        			      });
+        			return result;
+        		}
+        	</script>
     	</div>
     	<div class="col-md-2"></div>
 		</div>
@@ -53,6 +66,7 @@
 	<!-- Bootstrap Core CSS -->
 	<link href="../static/css/bootstrap.min.css" rel="stylesheet">
 	<link href="../static/css/style.css" rel="stylesheet">
+	<link href="../static/js/jquery.js">
 	
    </h:body>
     

@@ -1,0 +1,65 @@
+<html>
+<head>
+ 		<meta charset="utf-8">
+    	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    	<meta name="viewport" content="width=device-width, initial-scale=1">
+    	<meta name="description" content="">
+    	<meta name="author" content="">
+	
+    	<title>Geolocalización de los modulos</title>
+    	    
+    	<style>
+      		#map {
+      			height: 100%;
+      		}
+      		html, body {
+        		height: 100%;
+        		margin: 0;
+        		padding: 0;
+      		}
+    	</style>
+  	</head>
+  
+  	<body>
+        <navBar brand="PVTranslator" brandHref="http://localhost:8080/A7clienteREST/faces/modulo/index.xhtml"></b:navBar>
+    	<div id="map" ></div>
+		<button>
+		</button>
+	    <script>
+      		function initMap() {
+        		var map = new google.maps.Map(document.getElementById('map'), {
+          			center: {lat: 39.6482283, lng: -4.5950447},
+          			zoom: 6.5
+        		});
+			
+				//esta función añade marcadores, loopear por cada módulo pasando location
+				function addMarker(location, map) {
+            			var marker = new google.maps.Marker({
+	            			position: location,
+	            		    map: map,
+		          			draggable: false,
+		          			animation: google.maps.Animation.DROP
+	            		});
+	            }
+				//PONER UN BOTÓN
+	        	//esta funcion centra el mapa en un sitio y hace zoom pasando una localizacion como parametro
+                               var x ={{data}};
+                               console.log(x);
+                               
+                                
+                                
+                                for(y in x){
+                                    console.log(x[y].lat);
+                                    var myLatlng = new google.maps.LatLng(parseFloat(x[y].lat),parseFloat(x[y].lng));
+                                    addMarker(myLatlng,map);
+                                }
+                                
+
+                                
+				
+				
+      		}          	  		
+      	</script>
+		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDaMjDk7XxSrJN-AhxAKqv6GrReFZG_3gQ&amp;callback=initMap"></script>
+  	</body>
+</html>

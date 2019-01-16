@@ -52,9 +52,7 @@ class BorrarModulo(BaseHandler):
         #FALTARIA BORRADO CASCADA
         db.delete(mod)
         #Recarga todo
-        listaModulos = Modulo.all()
-        usuarios = Usuario.all()
-        self.render_template('listaModulos.html', {'listaModulos': listaModulos, 'listaUsuarios':usuarios})
+        self.render_template('success.html', {})
         
 class CrearModulo(BaseHandler):
         def post(self):
@@ -114,5 +112,16 @@ class ListaCampanyas(BaseHandler):
     def get(self):
         listaCampanyas = Campanya.all()
         self.render_template('listaCampanyas.html', {'listaCampanyas': listaCampanyas})
-
-    
+#----------------------------------------
+#------Mapa handler
+#----------------------------------------
+class MapHandler(BaseHandler):
+    def get(self):
+        data = '['
+        listaModulos = Modulo.all()
+        for x in listaModulos:
+            data += "{lat: parseFloat("+str(x.localizacion.lat)+"), lng: parseFloat("+str(x.localizacion.lon)+")},"
+        data+= ']'
+        print("json: ",data)
+        self.render_template('Map.html', {'data': data})
+ 

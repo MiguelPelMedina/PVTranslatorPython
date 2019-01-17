@@ -10,15 +10,92 @@
     <meta name="author" content="">
 
     <title>Inicio</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 
     <body>
-    <div class="jumbotron mx-auto" align="center">
-    <h1 class="display-4">PVTranslator</h1>
-        <button class="btn btn-primary btn-lg mx-auto" onclick="location.href='/listaModulos';" >Ir a la lista de modulos</button>
-        <button class="btn btn-primary btn-lg mx-auto" onclick="location.href='/listaCampanyas';" >Ir a la lista de campanyas</button><br/>
-    </div>
     
+    <style>
+body, html {
+  height: 100%;
+  margin: 0;
+  font: 400 15px/1.8 "Lato", sans-serif;
+  color: #777;
+}
+
+.bgimg-1, .bgimg-2, .bgimg-3 {
+  position: relative;
+  opacity: 0.9;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+}
+.bgimg-1 {
+  background-image: url("img_parallax.jpg");
+  height: 100%;
+}
+
+.caption {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 100%;
+  text-align: center;
+  color: #000;
+}
+
+.caption span.border {
+  background-color: #111;
+  color: #fff;
+  padding: 18px;
+  font-size: 25px;
+  letter-spacing: 10px;
+}
+
+h3 {
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  font: 20px "Lato", sans-serif;
+  color: #111;
+}
+</style>
+   
+    <div id="mostrar" class="bgimg-1">
+	    <div class="caption" align="center">
+	    	<h1 class="display-4" style="color:white">PVTranslator</h1>
+	        <button class="btn btn-primary btn-lg mx-auto" onclick="location.href='/listaModulos';" >Ir a la lista de modulos</button>
+	        <button class="btn btn-primary btn-lg mx-auto" onclick="location.href='/listaCampanyas';" >Ir a la lista de campanyas</button><br/>
+	    </div>
+    </div>
+    <script>
+    	var fotos;
+    	
+    	window.setInterval(function(){
+    		var random = fotos[Math.floor(Math.random()*fotos.length)]
+    		$("#mostrar").css('background-image', 'url('+random.url_m+')');
+    	}, 5000);
+    		
+            $(document).ready(function () {                
+                $.ajax({
+                    url: "http://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=16a60485c553b4eaaf8f08b8deeeef35&tags=SolarPanel&per_page=5&format=json&nojsoncallback=1&extras=url_m"
+                }).done(function (objJson) {
+                    mostrarFotos(objJson);
+                });
+                function mostrarFotos(flickr) {
+                	fotos = flickr.photos.photo;
+                    for (var i = 0; i < flickr.photos.photo.length; i++) {
+                    	
+                        foto = flickr.photos.photo[i];
+                        url = "http://www.flickr.com/photos/" + foto.owner + "/" + foto.id;
+                        $("#mostrar").css('background-image', 'url('+foto.url_m+')');
+                        
+                        //$("#mostrar").append('<a href="' + url + '">' + '<img alt="' + foto.title + '"src="' + foto.url_m + '" />' + '</a>');
+                    }
+                }                
+            });
+            /*]]>*/
+        </script>
 	<!-- Bootstrap Core CSS -->
 	<link href="../static/css/bootstrap.min.css" rel="stylesheet">
 	<link href="../static/css/style.css" rel="stylesheet">

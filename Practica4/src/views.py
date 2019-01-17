@@ -123,14 +123,27 @@ class ListaCampanyas(BaseHandler):
         listaCampanyas = Campanya.all()
         self.render_template('listaCampanyas.html', {'listaCampanyas': listaCampanyas})
   
-#class CrearCampanya(BaseHandler):
-     
+class CrearCampanya(BaseHandler):
+    def post(self, mod_id):
+        iden = int(mod_id)
+        mod = db.get(db.Key.from_path('Modulo', iden))
+        nombre=self.request.get('nombreCampanya')
+        fechaCampanya =self.request.get('fechaCampanya')
+        campanya = Campanya(modulo = mod,
+                            fecha = datetime.strptime(fechaCampanya, '%Y-%m-%d'), 
+                            nombrecampanya = nombre)
+        campanya.put()
+        return webapp2.redirect('/listaCampanyas')
+    def get(self, mod_id):
+        iden = int(mod_id)
+        mod = db.get(db.Key.from_path('Modulo', iden))
+        self.render_template('crearCampanya.html', {'mod': mod})
         
 class EditarCampanya(BaseHandler):
     def post(self,cam_id):
         iden = int(cam_id)
         cam = db.get(db.Key.from_path('Campanya', iden))
-        cam.fecha = datetime.strptime(self.request.get('fecha'), '%Y-%m-%d %H:%M:%S')
+        cam.fecha = datetime.strptime(self.request.get('fecha'), '%Y-%m-%d')
         cam.nombrecampanya = self.request.get('nombre')
         
         cam.put()
@@ -163,5 +176,12 @@ class MapHandler(BaseHandler):
         print("json: ",data)
         self.render_template('Map.html', {'data': data})
         
-
- 
+#----------------------------------------
+#------Campanyas del modulo
+#----------------------------------------
+class CampanyasModulo (BaseHandler): 
+    def get(self, mod_id):
+        iden = int(mod_id)
+        mod = db.get(db.Key.from_path('Modulo', iden))
+        listaCampanyas = mod.listaCampanyas
+        self.render_template('campanyasModulo.html', {'listaCampanyas': listaCampanyas})

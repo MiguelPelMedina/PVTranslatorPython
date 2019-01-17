@@ -41,6 +41,9 @@
   					<td><output onload="weather({{m.localizacion.lat}},{{m.localizacion.lon}})"></output></td>
                	 	<td><a class="btn btn-warning" href="/editarModulo/{{ m.key().id() }}">Editar </a></td>
                	 	<td><a class="btn btn-danger" href="/borrarModulo/{{ m.key().id() }}">Borrar </a></td>
+               	 	<td><a class="btn btn-danger" href="/campanyasModulo/{{ m.key().id() }}">Ver Campanyas </a></td>
+               	 	<td><a class="btn btn-danger" href="/crearCampanya/{{ m.key().id() }}">Anyadir Campanya </a></td>
+               	 	
             	</tr>
             	{% endfor %}
             	</tbody>

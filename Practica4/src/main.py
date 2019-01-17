@@ -14,10 +14,11 @@ app = webapp2.WSGIApplication([
         ('/borrarModulo/([\d]+)', BorrarModulo),
         ('/editarModulo/([\d]+)', EditarModulo),
         ('/crearModulo', CrearModulo),
-        #('/crearCampanya', CrearCampanya),
+        ('/crearCampanya/([\d]+)', CrearCampanya),
         ('/editarCampanya/([\d]+)', EditarCampanya),
         ('/borrarCampanya/([\d]+)', BorrarCampanya),
-        ('/map',MapHandler)
+        ('/map',MapHandler),
+        ('/campanyasModulo/([\d]+)', CampanyasModulo),
         ],
         debug=True)
 

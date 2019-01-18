@@ -11,9 +11,61 @@
 
     <title>Inicio</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <meta name="google-signin-client_id" content="1093772845225-l5i6s4jf5tusf00sqg2ocval5tjvnk1n.apps.googleusercontent.com"/>
+    <script src="static/js/hello.all.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://apis.google.com/js/platform.js" async="true" ></script> 
+
+
+               <script>
+    function onSignIn(googleUser)
+{
+       var profile = googleUser.getBasicProfile();
+       var id_token = googleUser.getAuthResponse().id_token;
+    $(".g-signin2").css("display","none");
+    $(".data").css("display","block");
+    $("#email").text(profile.getEmail());
+    
+    
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', 'https://yourbackend.example.com/tokensignin');
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhr.onload = function() {
+      console.log('Signed in as: ' + xhr.responseText);
+    };
+    xhr.send('idtoken=' + id_token);
+}
+    
+
+function signOut()
+{
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function(){
+        
+        alert("You have been successfully signed out")
+        $(".g-signin2").css("display","block");
+        $(".data").css("display","none");
+    });
+}
+  </script>
+  
+     <style>
+
+    .data{
+    display:none;
+    }
+        .g-signin2{
+     margin-left:5px;
+     margin-top:5px;
+    }
+        </style>
+
 </head>
 
+
     <body>
+    
+ 
     
     <style>
 body, html {
@@ -60,10 +112,21 @@ h3 {
   color: #111;
 }
 </style>
+
+
+    <div class="g-signin2" data-onsuccess="onSignIn"></div>
+     <div class="data">
+    <p>Profile Details</p>
+    <img id="pic" class="img-circle" with="50" height="50"/>
+    <p id="email" class="alert alert-danger"></p>
+    <button onclick="signOut()" class="btn btn-danger">SignOut</button>
+    </div>
    
     <div id="mostrar" class="bgimg-1">
 	    <div class="caption" align="center">
 	    	<h1 class="display-4" style="color:white">PVTranslator</h1>
+	    	<button class="btn btn-primary btn-lg mx-auto" onclick="location.href='/login';" >Login</button>
+	    	<button class="btn btn-primary btn-lg mx-auto" onclick="location.href='/logout';" >Logout</button>
 	        <button class="btn btn-primary btn-lg mx-auto" onclick="location.href='/listaModulos';" >Ir a la lista de modulos</button>
 	        <button class="btn btn-primary btn-lg mx-auto" onclick="location.href='/listaCampanyas';" >Ir a la lista de campanyas</button><br/>
 	    </div>

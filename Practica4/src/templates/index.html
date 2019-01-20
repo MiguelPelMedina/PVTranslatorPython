@@ -86,7 +86,7 @@ h3 {
     		
             $(document).ready(function () {                
                 $.ajax({
-                    url: "http://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=16a60485c553b4eaaf8f08b8deeeef35&tags=SolarPanel&per_page=5&format=json&nojsoncallback=1&extras=url_m"
+                    url: "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=16a60485c553b4eaaf8f08b8deeeef35&tags=SolarPanel&per_page=5&format=json&nojsoncallback=1&extras=url_m"
                 }).done(function (objJson) {
                     mostrarFotos(objJson);
                 });

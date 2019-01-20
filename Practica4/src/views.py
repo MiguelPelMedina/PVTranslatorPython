@@ -8,12 +8,12 @@ import os
 import webapp2
 import jinja2
 import populate as po
-from google.appengine.api import search
+
 from google.appengine.api import users
 
 
 from google.appengine.ext import db
-from models import Modulo, Campanya, Usuario, Comentario 
+from models import Modulo, Campanya, Usuario 
 
 TEMPLATE_DIR = os.path.join(os.path.dirname(__file__), 'templates')
 jinja_environment = \
@@ -85,7 +85,7 @@ class BorrarModulo(BaseHandler):
             db.delete(c)
         db.delete(mod)
         #Recarga todo
-        self.render_template('success.html', {})
+        return webapp2.redirect('/listaModulos')
         
 class CrearModulo(BaseHandler):
         def post(self):
@@ -133,7 +133,7 @@ class EditarModulo(BaseHandler):
             
         Mod.put()
         
-        return webapp2.redirect('/')
+        return webapp2.redirect('/listaModulos')
 
     def get(self, add_id):
         iden = int(add_id)

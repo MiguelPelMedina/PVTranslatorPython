@@ -25,7 +25,7 @@
             	<th>Idealidad</th>
             	<th>Resistencia</th>
             	<th>Rendimiento</th>
-            	<th>temp/est.cielo</th>
+            	
             	</thead>
             	<tbody>
             	{% for m in listaModulos %}
@@ -38,17 +38,21 @@
   					<td>{{ m.idealidad }}</td>
   					<td>{{ m.resistencia }}</td>
   					<td>{{ m.rendimiento }}</td>
-  					<td><output onload="weather({{m.localizacion.lat}},{{m.localizacion.lon}})"></output></td>
-               	 	<td><a class="btn btn-warning" href="/editarModulo/{{ m.key().id() }}">Editar </a></td>
+  					{% if admin %}
+               	 	<td><a class="btn btn-warning" href="/editarModulo/{{ m.key().id() }}" >Editar </a></td>
                	 	<td><a class="btn btn-danger" href="/borrarModulo/{{ m.key().id() }}">Borrar </a></td>
-               	 	<td><a class="btn btn-danger" href="/campanyasModulo/{{ m.key().id() }}">Ver Campanyas </a></td>
                	 	<td><a class="btn btn-danger" href="/crearCampanya/{{ m.key().id() }}">Anyadir Campanya </a></td>
-               	 	
+               	 	{% endif %}
+               	 	<td><a class="btn btn-danger" href="/campanyasModulo/{{ m.key().id() }}">Ver Campanyas </a></td>
             	</tr>
             	{% endfor %}
             	</tbody>
         	</table>
+        	{% if admin %}
         	<a class="btn btn-success btn-lg" href="/crearModulo">Crear </a>
+        	{% endif %}
+        	<a class="btn btn-info btn-lg" href="/map">Mapa de módulos </a>
+        	<a href="javascript:history.back()" class="btn btn-warning btn-lg">Go Back</a>
         	<script>
         		function weather(lat,lon){
         			var result = '';
@@ -61,6 +65,7 @@
         		}
         	</script>
     	</div>
+    	
     	<div class="col-md-2"></div>
 		</div>
 		

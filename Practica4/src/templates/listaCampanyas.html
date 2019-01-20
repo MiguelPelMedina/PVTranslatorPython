@@ -33,14 +33,17 @@
                 	<td>{{ c.modulo.nombremodulo }}</td>
   					<td>{{ c.fecha.strftime('%Y-%m-%d') }}</td>
   					<td>{{ c.nombrecampanya }}</td>
+  					{% if admin %}
   					<td><a class="btn btn-warning" href="/editarCampanya/{{ c.key().id() }}">Editar </a></td>
   					<td><a class="btn btn-danger" href="/borrarCampanya/{{ c.key().id() }}">Borrar </a></td>
+  					{% endif %}
             	</tr>
             	{% endfor %}
             	</tbody>
         	</table>
-        	
+        	<a href="javascript:history.back()" class="btn btn-warning btn-lg">Go Back</a>
     	</div>
+    	
     	<div class="col-md-2"></div>
 		</div>
 		<!-- Bootstrap Core CSS -->

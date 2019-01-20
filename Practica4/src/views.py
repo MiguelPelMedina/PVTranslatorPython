@@ -37,15 +37,7 @@ class Inicio (BaseHandler):
         po.Populate().addData()
         self.render_template('index.html', {})
     
-    
-class ListaModulos(BaseHandler):
-    
-
-    def get(self):
-        listaModulos = Modulo.all()
-        usuarios = Usuario.all()
-        self.render_template('listaModulos.html', {'listaModulos': listaModulos, 'listaUsuarios':usuarios})
-        
+          
 #----------------------------------------
 #------LOGIN
 #----------------------------------------    
@@ -54,6 +46,7 @@ class Login(BaseHandler):
     def get(self):
 
         user = users.get_current_user()
+        
         if user:
             print("encontrado",users.GetCurrentUser())
             self.render_template('index.html', {})
@@ -61,7 +54,7 @@ class Login(BaseHandler):
             print("no encontrado",users.GetCurrentUser())
             self.redirect(users.create_login_url(self.request.uri))
             
-        self.render_template('index.html', {})
+        
         
 class Logout(BaseHandler):
     
@@ -75,6 +68,14 @@ class Logout(BaseHandler):
 #----------------------------------------
 #------CRUD MODULO
 #----------------------------------------
+class ListaModulos(BaseHandler):
+    
+    def get(self):
+        listaModulos = Modulo.all()
+        usuarios = Usuario.all()
+        admin = users.IsCurrentUserAdmin()
+        self.render_template('listaModulos.html', {'listaModulos': listaModulos, 'listaUsuarios':usuarios,'admin':admin})
+  
 class BorrarModulo(BaseHandler):
     def get(self, modulo_id):
         iden = int(modulo_id)
@@ -146,8 +147,9 @@ class EditarModulo(BaseHandler):
 #----------------------------------------
 class ListaCampanyas(BaseHandler):
     def get(self):
+        admin = users.IsCurrentUserAdmin()
         listaCampanyas = Campanya.all()
-        self.render_template('listaCampanyas.html', {'listaCampanyas': listaCampanyas})
+        self.render_template('listaCampanyas.html', {'listaCampanyas': listaCampanyas,'admin':admin})
   
 class CrearCampanya(BaseHandler):
     def post(self, mod_id):
@@ -210,4 +212,5 @@ class CampanyasModulo (BaseHandler):
         iden = int(mod_id)
         mod = db.get(db.Key.from_path('Modulo', iden))
         listaCampanyas = mod.listaCampanyas
-        self.render_template('campanyasModulo.html', {'listaCampanyas': listaCampanyas})
+        admin = users.IsCurrentUserAdmin()
+        self.render_template('campanyasModulo.html', {'listaCampanyas': listaCampanyas,'admin':admin})

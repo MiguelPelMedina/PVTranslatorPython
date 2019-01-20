@@ -3,124 +3,69 @@
 
 <head>
 
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="author" content="">
 
     <title>Inicio</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <meta name="google-signin-client_id" content="1093772845225-l5i6s4jf5tusf00sqg2ocval5tjvnk1n.apps.googleusercontent.com"/>
     <script src="static/js/hello.all.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://apis.google.com/js/platform.js" async="true" ></script> 
-
-
-               <script>
-    function onSignIn(googleUser)
-{
-       var profile = googleUser.getBasicProfile();
-       var id_token = googleUser.getAuthResponse().id_token;
-    $(".g-signin2").css("display","none");
-    $(".data").css("display","block");
-    $("#email").text(profile.getEmail());
-    
-    
-    var xhr = new XMLHttpRequest();
-    xhr.open('POST', 'https://yourbackend.example.com/tokensignin');
-    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    xhr.onload = function() {
-      console.log('Signed in as: ' + xhr.responseText);
-    };
-    xhr.send('idtoken=' + id_token);
-}
-    
-
-function signOut()
-{
-    var auth2 = gapi.auth2.getAuthInstance();
-    auth2.signOut().then(function(){
-        
-        alert("You have been successfully signed out")
-        $(".g-signin2").css("display","block");
-        $(".data").css("display","none");
-    });
-}
-  </script>
-  
-     <style>
-
-    .data{
-    display:none;
-    }
-        .g-signin2{
-     margin-left:5px;
-     margin-top:5px;
-    }
-        </style>
-
 </head>
 
 
-    <body>
+<body>
     
  
     
     <style>
 body, html {
-  height: 100%;
-  margin: 0;
-  font: 400 15px/1.8 "Lato", sans-serif;
-  color: #777;
+	height: 100%;
+	margin: 0;
+	font: 400 15px/1.8 "Lato", sans-serif;
+	color: #777;
 }
 
 .bgimg-1, .bgimg-2, .bgimg-3 {
-  position: relative;
-  opacity: 0.9;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-
+	position: relative;
+	opacity: 0.9;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
 }
+
 .bgimg-1 {
-  background-image: url("img_parallax.jpg");
-  height: 100%;
+	background-image: url("img_parallax.jpg");
+	height: 100%;
 }
 
 .caption {
-  position: absolute;
-  left: 0;
-  top: 50%;
-  width: 100%;
-  text-align: center;
-  color: #000;
+	position: absolute;
+	left: 0;
+	top: 50%;
+	width: 100%;
+	text-align: center;
+	color: #000;
 }
 
 .caption span.border {
-  background-color: #111;
-  color: #fff;
-  padding: 18px;
-  font-size: 25px;
-  letter-spacing: 10px;
+	background-color: #111;
+	color: #fff;
+	padding: 18px;
+	font-size: 25px;
+	letter-spacing: 10px;
 }
 
 h3 {
-  letter-spacing: 5px;
-  text-transform: uppercase;
-  font: 20px "Lato", sans-serif;
-  color: #111;
+	letter-spacing: 5px;
+	text-transform: uppercase;
+	font: 20px "Lato", sans-serif;
+	color: #111;
 }
 </style>
-
-
-    <div class="g-signin2" data-onsuccess="onSignIn"></div>
-     <div class="data">
-    <p>Profile Details</p>
-    <img id="pic" class="img-circle" with="50" height="50"/>
-    <p id="email" class="alert alert-danger"></p>
-    <button onclick="signOut()" class="btn btn-danger">SignOut</button>
-    </div>
    
     <div id="mostrar" class="bgimg-1">
 	    <div class="caption" align="center">
@@ -162,5 +107,5 @@ h3 {
 	<!-- Bootstrap Core CSS -->
 	<link href="../static/css/bootstrap.min.css" rel="stylesheet">
 	<link href="../static/css/style.css" rel="stylesheet">
-    </body>
+</body>
 </html>

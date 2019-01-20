@@ -11,8 +11,6 @@ import populate as po
 from google.appengine.api import search
 from google.appengine.api import users
 
-from google.auth import id_token
-from google.auth.transport import requests
 
 from google.appengine.ext import db
 from models import Modulo, Campanya, Usuario, Comentario 
@@ -48,7 +46,9 @@ class ListaModulos(BaseHandler):
         usuarios = Usuario.all()
         self.render_template('listaModulos.html', {'listaModulos': listaModulos, 'listaUsuarios':usuarios})
         
-    
+#----------------------------------------
+#------LOGIN
+#----------------------------------------    
 class Login(BaseHandler):
     
     def get(self):
@@ -71,34 +71,7 @@ class Logout(BaseHandler):
             self.redirect(users.create_logout_url(self.request.uri))
         self.render_template('index.html', {})
         
-class Oauth2(BaseHandler):
-    def post(self):
-        # (Receive token by HTTPS POST)
-        # ...
 
-        try:
-            id=self.request.get('id_token')
-            # Specify the CLIENT_ID of the app that accesses the backend:
-            idinfo = id_token.verify_oauth2_token(id, requests.Request(), CLIENT_ID)
-    
-            # Or, if multiple clients access the backend server:
-            # idinfo = id_token.verify_oauth2_token(token, requests.Request())
-            # if idinfo['aud'] not in [CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3]:
-            #     raise ValueError('Could not verify audience.')
-        
-            if idinfo['iss'] not in ['accounts.google.com', 'https://accounts.google.com']:
-                raise ValueError('Wrong issuer.')
-    
-            # If auth request is from a G Suite domain:
-            # if idinfo['hd'] != GSUITE_DOMAIN_NAME:
-            #     raise ValueError('Wrong hosted domain.')
-        
-            # ID token is valid. Get the user's Google Account ID from the decoded token.
-            userid = idinfo['sub']
-        except ValueError:
-        # Invalid token
-            pass
-    
 #----------------------------------------
 #------CRUD MODULO
 #----------------------------------------
@@ -145,9 +118,9 @@ class EditarModulo(BaseHandler):
     def post(self, add_id):
         iden = int(add_id)
         Mod = db.get(db.Key.from_path('Modulo', iden))
-        print("jaja si ", Mod.nombremodulo)
+        
         Mod.nombremodulo=self.request.get('nombreModulo')
-        print("jaja si ", Mod.nombremodulo)
+        
         Mod.valoralpha=float(self.request.get('alpha'))
         Mod.valorbeta=float(self.request.get('beta'))
         Mod.valorgamma=float(self.request.get('gamma'))
@@ -158,7 +131,7 @@ class EditarModulo(BaseHandler):
         Mod.localizacion = db.GeoPt(float(self.request.get('latitud')), float(self.request.get('longitud')))
             
         Mod.put()
-        print("jaja si ", iden)
+        
         return webapp2.redirect('/')
 
     def get(self, add_id):

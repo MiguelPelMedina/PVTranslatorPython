@@ -67,24 +67,36 @@ class Populate():
         
         usuario1 = Usuario(nombreusuario = 'juanito1',
                          email  = 'remedans@gmail.com')
+        
         usuario2 = Usuario(nombreusuario = 'juanito2',
                          email  = 'remedans1@gmail.com')
+        
         usuario3 = Usuario(nombreusuario = 'pruebaparaingweb',
                          email  = 'pruebaparaingweb@gmail.com')
+        
+        usuario4 = Usuario(nombreusuario = 'test', 
+                         email = 'test@example.com')
         
         usuario1.put()
         usuario2.put()
         usuario3.put()
+        usuario4.put()
         
         q2 = db.GqlQuery("SELECT * FROM Comentario")
         resetearComentarios= q2.fetch(10)
         db.delete(resetearComentarios)
         
         comentario1 = Comentario(usuario = usuario1, comentario = 'esto esta bien')
+        
         comentario1.put()
+
+        comentario2 = Comentario(usuario = usuario4, comentario = 'test comment')
+        comentario2.put()
         
+        comentario3 = Comentario(usuario = usuario4, comentario = 'test comment 2')
+        comentario3.put()
         
-        
-        
-        
+        comentario4 = Comentario(usuario = usuario4, comentario = 'test comment 3')
+        comentario4.put()
+
         #FIN DE INICIALIZACION DE LA BASE DE DATOS

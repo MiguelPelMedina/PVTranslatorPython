@@ -1,0 +1,61 @@
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Comentarios</title>
+</head>
+
+   <h:body>
+	{% block content %}
+		<div class="row">
+    	<div class="col-md-2"></div>
+    	<div class="col-md-8">
+    	
+    		<a class="btn btn-primary" href="/crearComentario"> Comentar </a>
+    	
+        	<table class="table">
+            	<thead>
+	            	<th>Usuario</th>
+	            	<th>Comentario</th>
+	            	<th> </th>
+	            	<th> </th>
+            	</thead>
+            	<tbody>
+	            	{% for c in listaComentarios %}
+	            	<tr>
+	                	<td>{{ c.usuario.nombreusuario }}</td>
+	  					<td>{{ c.comentario }}</td>
+
+	  					{% if logeado %}
+	  						{% if UsuarioActual == c.usuario.email %}
+	  							<td><a class="btn btn-danger" href="/borrarComentario/{{ c.key().id() }}"> Borrar </a></td>
+								<td><a class="btn btn-warning" href="/editarComentario/{{ c.key().id() }}"> Editar </a></td>
+							{% endif %}
+	               	 	{% endif %}
+	               	 	
+	            	</tr>
+	            	{% endfor %}
+            	</tbody>
+        	</table>
+        	<a href="javascript:history.back()" class="btn btn-warning btn-lg">Go Back</a>
+
+    	</div>
+    	<div class="col-md-2"></div>
+		</div>
+		
+	{% endblock content %}	
+	<!DOCTYPE html>
+	<!-- Bootstrap Core CSS -->
+	<link href="../static/css/bootstrap.min.css" rel="stylesheet">
+	<link href="../static/css/style.css" rel="stylesheet">
+	<link href="../static/js/jquery.js">
+	
+   </h:body>
+    
+    
+</html>

@@ -23,7 +23,11 @@ app = webapp2.WSGIApplication([
         ('/map',MapHandler),
         ('/campanyasModulo/([\d]+)', CampanyasModulo),
         ('/login', Login),
-        ('/logout', Logout)
+        ('/logout', Logout),
+        ('/listaComentarios', ListaComentarios),
+        ('/borrarComentario/([\d]+)', BorrarComentario),
+        ('/editarComentario/([\d]+)', EditarComentario),
+        ('/crearComentario', CrearComentario)
         ],
         debug=True)
 

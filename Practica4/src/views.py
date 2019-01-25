@@ -13,7 +13,7 @@ from google.appengine.api import users
 
 
 from google.appengine.ext import db
-from models import Modulo, Campanya, Usuario 
+from models import Modulo, Campanya, Usuario, Comentario
 
 TEMPLATE_DIR = os.path.join(os.path.dirname(__file__), 'templates')
 jinja_environment = \
@@ -64,7 +64,82 @@ class Logout(BaseHandler):
             self.redirect(users.create_logout_url(self.request.uri))
         self.render_template('index.html', {})
         
+#----------------------------------------
+#------CRUD COMENTARIOS
+#----------------------------------------
+class ListaComentarios(BaseHandler):
+    def get(self):
+        listaComentarios = Comentario.all();
+        
+        user = users.get_current_user()
 
+        if user:
+            logeado = True
+        else:
+            logeado = False
+            
+        UsuarioActual = users.GetCurrentUser().email();
+        self.render_template('listaComentarios.html', {'listaComentarios': listaComentarios, 
+                                                       'logeado':logeado, 
+                                                       'UsuarioActual':UsuarioActual})
+
+class BorrarComentario(BaseHandler):
+        
+    def get(self, comentario_id):
+        iden = int(comentario_id)
+        comentario = db.get(db.Key.from_path('Comentario', iden))
+
+        db.delete(comentario)
+        
+        webapp2.redirect('/listaComentarios')
+        return webapp2.redirect('/listaComentarios')
+        
+class EditarComentario(BaseHandler):
+    def post(self, comentario_id):
+        
+        iden = int(comentario_id)
+        nickname = self.request.get('nickname')
+        comentario = self.request.get('comentario')
+        
+        user = Usuario(nombreusuario = nickname, 
+                       email = users.GetCurrentUser().email())
+        user.put()
+        coment = Comentario(usuario = user, comentario = comentario)
+        coment.put()
+        
+        comentarioAntiguo = db.get(db.Key.from_path('Comentario', iden))
+        db.delete(comentarioAntiguo)
+        
+        return webapp2.redirect('/listaComentarios')
+    
+    def get(self, comentario_id):
+        
+        iden = int(comentario_id)
+        
+        c = db.get(db.Key.from_path('Comentario', iden))
+        nickname = c.usuario.nombreusuario
+        comentario = c.comentario
+        self.render_template('editarComentario.html', {'iden': iden, 
+                                                       'nickname' : nickname, 
+                                                       'comentario' : comentario})
+        
+class CrearComentario(BaseHandler):
+    def post(self):
+        
+        nickname = self.request.get('nickname')
+        comentario = self.request.get('comentario')
+        
+        user = Usuario(nombreusuario = nickname, 
+                       email = users.GetCurrentUser().email())
+        user.put()
+        coment = Comentario(usuario = user, comentario = comentario)
+        coment.put()
+        
+        webapp2.redirect('/listaComentarios')
+        return webapp2.redirect('/listaComentarios')
+
+    def get(self):
+        self.render_template('comentar.html', {})
 #----------------------------------------
 #------CRUD MODULO
 #----------------------------------------
@@ -139,9 +214,7 @@ class EditarModulo(BaseHandler):
         iden = int(add_id)
         mod = db.get(db.Key.from_path('Modulo', iden))
         self.render_template('editarModulo.html', {'mod': mod})
-        
-                              
-      
+
 #----------------------------------------
 #------CRUD CAMPANYA
 #----------------------------------------
